@@ -1,0 +1,17 @@
+node('master')
+{
+    stage('checkout'){
+        git 'https://github.com/executeautomation/SeleniumNUnitParam.git'
+    }
+    stage('restore')
+    {
+        bat label: '', script: '"C:\\ProgramData\\chocolatey\\lib\\NuGet.CommandLine\\tools\\nuget.exe" restore SeleniumNUnitParam.sln'
+    
+        bat "\"${tool 'MSBuild'}\" SeleniumNUnitParam.sln /p:Configuration=Release /p:Platform=\"Any CPU\" /p:ProductVersion=1.0.0.${env.BUILD_NUMBER}"
+
+    }
+ stage ('Archive')
+ {
+		archive 'SeleniumNUnitParam/bin/Release/**'
+ }
+ }
