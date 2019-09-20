@@ -1,0 +1,8 @@
+node('master'){
+    stage('Code Checkout'){
+    git 'https://github.com/kishorekk12/pipelineTest.git'
+    }
+    stage('Report'){
+        cucumber failedFeaturesNumber: -1, failedScenariosNumber: -1, failedStepsNumber: -1, fileIncludePattern: '**/*.json', pendingStepsNumber: -1, skippedStepsNumber: -1, sortingMethod: 'ALPHABETICAL', undefinedStepsNumber: -1
+    }
+}
